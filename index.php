@@ -39,5 +39,8 @@ function get_url_list(){
 }
 
 function get_number_list(){
+    $f = file("ht.txt",FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES);
+    foreach ($f as $value){
 
+    }
 }
