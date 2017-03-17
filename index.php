@@ -39,21 +39,43 @@ function get_url_list(){
     fclose($f_w);
 }
 
-$replace_list = array(
-    '</tr>',
-    '<tr style="text-align:center; background-color: #FFDBCE;">',
-    '<td style="font-size: 32px; font-weight: bold; color: #000000;border-bottom-style: dotted; border-bottom-color: #CCCCCC">',
-    '<td style="font-size: 48px; font-weight: bold; color: #000000;border-bottom-style: dotted; border-bottom-color: #CCCCCC; word-break: break-all">',
-    '</td>',
-    '<td style="font-size: 48px; font-weight: bold; color: #000000;border-bottom-style: dotted; border-bottom-color: #CCCCCC">',
-    '<tr style="text-align:center; ">',
-    '</table>'
-);
-get_number_list($replace_list);
+
+get_number_list();
 function get_number_list($list = array()){
+    $replace_list_to_null = array(
+        '</tr>',
+        '<tr style="text-align:center; background-color: #FFDBCE;">',
+        '<td style="font-size: 32px; font-weight: bold; color: #000000;border-bottom-style: dotted; border-bottom-color: #CCCCCC">',
+        '<td style="font-size: 48px; font-weight: bold; color: #000000;border-bottom-style: dotted; border-bottom-color: #CCCCCC; word-break: break-all">',
+        '<td style="font-size: 48px; font-weight: bold; color: #000000;border-bottom-style: dotted; border-bottom-color: #CCCCCC">',
+        '<tr style="text-align:center; ">',
+        '</table>',
+        '\r\n',
+    );
+
+    $replace_list_to_doin = array(
+        ',&nbsp;',
+    );
+
+    $replace_list_to_brackets = array(
+        '&nbsp;&nbsp;',
+    );
+
+    $replace_list_to_brackets_end = array(
+        '&nbsp;&nbsp;</td>',
+    );
+
+    $replace_list_to_br = array(
+        '<br />',
+    );
+
     $f = file("ht.txt",FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES);
     foreach ($f as $value){
-        $value = str_replace($list,'',$value);
-        echo $value.'<br>';
+        $value = str_replace($replace_list_to_br,'/',$value);
+        $value = str_replace($replace_list_to_null,'',$value);
+        $value = str_replace($replace_list_to_doin,',',$value);
+        $value = str_replace($replace_list_to_brackets_end,']',$value);
+        $value = str_replace($replace_list_to_brackets,'[',$value);
+        echo $value;
     }
 }
