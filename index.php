@@ -15,7 +15,7 @@ function get_url_list(){
     $end = '<ins class="clickforceads" style="display:inline-block;width:728px;height:90px" data-ad-zone="942"></ins>';
     $start_page = 1;
     $end_page = 61;
-    $f_w = fopen("ht.txt",'a');
+    $f_w = fopen("ht.txt",'w');
 
     for($i=$start_page;$i<=$end_page;$i++){
         $f = file("http://www.pilio.idv.tw/ltobig/list.asp?indexpage={$i}",FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES);
@@ -33,32 +33,30 @@ function get_url_list(){
                     break;
                 }
             }
-            if($read===true)fwrite($f_w,"{$value}\r\n");
+            if($read===true){
+                fwrite($f_w,"{$value}\r\n");
+            }
         }
     }
     fclose($f_w);
 }
-
-
 get_number_list();
-function get_number_list($list = array()){
+function get_number_list(){
     $replace_list_to_null = array(
         '</tr>',
         '<tr style="text-align:center; background-color: #FFDBCE;">',
         '<td style="font-size: 32px; font-weight: bold; color: #000000;border-bottom-style: dotted; border-bottom-color: #CCCCCC">',
-        '<td style="font-size: 48px; font-weight: bold; color: #000000;border-bottom-style: dotted; border-bottom-color: #CCCCCC; word-break: break-all">',
         '<td style="font-size: 48px; font-weight: bold; color: #000000;border-bottom-style: dotted; border-bottom-color: #CCCCCC">',
         '<tr style="text-align:center; ">',
         '</table>',
+        '</td>',
         '\r\n',
     );
 
     $replace_list_to_doin = array(
-        ',&nbsp;',
-    );
-
-    $replace_list_to_brackets = array(
         '&nbsp;&nbsp;',
+        '<td style="font-size: 48px; font-weight: bold; color: #000000;border-bottom-style: dotted; border-bottom-color: #CCCCCC; word-break: break-all">',
+        ',&nbsp;',
     );
 
     $replace_list_to_brackets_end = array(
@@ -70,12 +68,19 @@ function get_number_list($list = array()){
     );
 
     $f = file("ht.txt",FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES);
+    $f_w = fopen("numberlist.txt",'w');
     foreach ($f as $value){
+        $value = str_replace($replace_list_to_brackets_end,';',$value);
         $value = str_replace($replace_list_to_br,'/',$value);
         $value = str_replace($replace_list_to_null,'',$value);
         $value = str_replace($replace_list_to_doin,',',$value);
-        $value = str_replace($replace_list_to_brackets_end,']',$value);
-        $value = str_replace($replace_list_to_brackets,'[',$value);
-        echo $value;
+        if($value===null)continue;
+        $s = strpos($value,';');
+        if(strpos($value,';')!==false){
+            fwrite($f_w,"{$value}\r\n");
+        }else{
+            fwrite($f_w,$value);
+        }
     }
+    fclose($f_w);
 }
