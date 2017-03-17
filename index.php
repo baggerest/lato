@@ -15,8 +15,7 @@ function get_url_list(){
     $end = '<ins class="clickforceads" style="display:inline-block;width:728px;height:90px" data-ad-zone="942"></ins>';
     $start_page = 1;
     $end_page = 61;
-    $f_w = fopen("ht.txt",'w');
-
+    $code_list = array();
     for($i=$start_page;$i<=$end_page;$i++){
         $f = file("http://www.pilio.idv.tw/ltobig/list.asp?indexpage={$i}",FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES);
         $read = false;
@@ -34,14 +33,14 @@ function get_url_list(){
                 }
             }
             if($read===true){
-                fwrite($f_w,"{$value}\r\n");
+                $code_list[] = $value;
             }
         }
     }
-    fclose($f_w);
+    return $code_list;
 }
-get_number_list();
-function get_number_list(){
+
+function get_number_list($input_get_url_list = array()){
     $replace_list_to_null = array(
         '</tr>',
         '<tr style="text-align:center; background-color: #FFDBCE;">',
@@ -67,20 +66,19 @@ function get_number_list(){
         '<br />',
     );
 
-    $f = file("ht.txt",FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES);
-    $f_w = fopen("numberlist.txt",'w');
-    foreach ($f as $value){
-        $value = str_replace($replace_list_to_brackets_end,';',$value);
-        $value = str_replace($replace_list_to_br,'/',$value);
-        $value = str_replace($replace_list_to_null,'',$value);
-        $value = str_replace($replace_list_to_doin,',',$value);
-        if($value===null)continue;
-        $s = strpos($value,';');
-        if(strpos($value,';')!==false){
-            fwrite($f_w,"{$value}\r\n");
-        }else{
-            fwrite($f_w,$value);
+    $list_lato = array();
+    $marge = null;
+    foreach ($input_get_url_list as $value) {
+        $value = str_replace($replace_list_to_brackets_end, ';', $value);
+        $value = str_replace($replace_list_to_br, '/', $value);
+        $value = str_replace($replace_list_to_null, '', $value);
+        $value = str_replace($replace_list_to_doin, ',', $value);
+        if ($value === null) continue;
+        $marge .= $value;
+        if (strpos($value, ';') !== false) {
+            $list_lato[] .= $marge;
+            $marge = null;
         }
     }
-    fclose($f_w);
+    return $list_lato;
 }
