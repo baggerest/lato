@@ -70,7 +70,8 @@ function search_number($number = 'number_word,number_word,...'){
     $f = file('numberlist.txt');
     $number_ = explode(',',$number);
     $k = 0;
-    foreach ($f as $value) {
+    foreach ($f as $id => $value) {
+        $value = str_replace("\r\n","",$value);
         $lato_list = explode(',', $value);
         $class = 0;
         foreach ($number_ as $item) {
