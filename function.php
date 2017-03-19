@@ -91,3 +91,53 @@ function search_number($number = 'number_word,number_word,...'){
         $lato_list = null;
     }
 }
+
+function search_one_number_count($number = 'number_word'){
+    $f = file('numberlist.txt');
+    $number_ = explode(',',$number);
+    $k = 0;
+    $count = 0;
+    foreach ($f as $id => $value) {
+        $value = str_replace("\r\n","",$value);
+        $lato_list = explode(',', $value);
+        $class = 0;
+        foreach ($number_ as $item) {
+            foreach ($lato_list as $key => $latonumber) {
+                if ($item === $latonumber) {
+                    $class++;
+                }
+            }
+        }
+        if ($class === count($number_)) {
+            $count++;
+            $k++;
+        }
+        $lato_list = null;
+    }
+    return $count;
+}
+
+function search_special_count($number = 'number_word'){
+    $f = file('numberlist.txt');
+    $number_ = explode(',',$number);
+    $k = 0;
+    $count = 0;
+    foreach ($f as $id => $value) {
+        $value = str_replace("\r\n","",$value);
+        $lato_list = explode(',', $value);
+        $class = 0;
+        foreach ($number_ as $item) {
+            foreach ($lato_list as $key => $latonumber) {
+                if ($item === $latonumber) {
+                    $class++;
+                }
+            }
+        }
+        if ($class === count($number_)) {
+            $count++;
+            $k++;
+        }
+        $lato_list = null;
+    }
+    return $count;
+}
