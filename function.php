@@ -169,7 +169,7 @@ function show_two_number_count(){
         $value = str_replace("\r\n","",$value);
         $list[] = explode(",",substr($value,11,17));
     }
-    echo "<table border='1'>";
+    echo "<table border='1' style='text-align:center;'>";
     for ($i=$start;$i<=$end;$i++){
         echo "<tr>";
         for ($j=$start;$j<=$end;$j++){
@@ -180,7 +180,6 @@ function show_two_number_count(){
                     echo ($j===0)?"<td></td>":"<th>".$noj."</th>";
                     break;
                 default:
-
                     echo ($j===0)?"<th>".$noi."</th>":"<td>".search_two_number_count($noi.",".$noj,$list)."</td>";
                     break;
             }
