@@ -102,7 +102,7 @@ function search_one_number_count($number = 'number_word'){
         $lato_list = explode(',', $value);
         $class = 0;
         foreach ($number_ as $item) {
-            foreach ($lato_list as $key => $latonumber) {
+            foreach ($lato_list as $latonumber) {
                 if ($item === $latonumber) {
                     $class++;
                 }
@@ -159,4 +159,52 @@ function show_same_lato(){
             echo $value."<br>";
         }
     }
+}
+
+function show_two_number_count(){
+    $f = file('numberlist.txt');
+    $start = 0;
+    $end = 49;
+    foreach ($f as $value){
+        $value = str_replace("\r\n","",$value);
+        $list[] = explode(",",substr($value,11,17));
+    }
+    echo "<table border='1'>";
+    for ($i=$start;$i<=$end;$i++){
+        echo "<tr>";
+        for ($j=$start;$j<=$end;$j++){
+            $noi = str_pad($i,2,"0",STR_PAD_LEFT);
+            $noj = str_pad($j,2,"0",STR_PAD_LEFT);
+            switch ($i){
+                case 0:
+                    echo ($j===0)?"<td></td>":"<th>".$noj."</th>";
+                    break;
+                default:
+
+                    echo ($j===0)?"<th>".$noi."</th>":"<td>".search_two_number_count($noi.",".$noj,$list)."</td>";
+                    break;
+            }
+        }
+        echo "</tr>";
+    }
+    echo "</table>";
+}
+
+function search_two_number_count($number = '',$lato_list = array()){
+    $number_ = explode(',',$number);
+    $k = 0;
+    foreach ($lato_list as $value) {
+        $class = 0;
+        foreach ($number_ as $item) {
+            foreach ($value as $latonumber) {
+                if ($item === $latonumber) {
+                    $class++;
+                }
+            }
+        }
+        if ($class === count($number_)) {
+            $k++;
+        }
+    }
+    return $k;
 }
