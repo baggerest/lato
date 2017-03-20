@@ -180,7 +180,9 @@ function show_two_number_count(){
                     echo ($j===0)?"<td></td>":"<th>".$noj."</th>";
                     break;
                 default:
-                    echo ($j===0)?"<th>".$noi."</th>":"<td>".search_two_number_count($noi.",".$noj,$list)."</td>";
+                    $count = search_two_number_count($noi.",".$noj,$list);
+                    $count = $count>=25?"<span style='background-color: blueviolet'>$count</span>":$count;
+                    echo ($j===0)?"<th>".$noi."</th>":"<td>".$count."</td>";
                     break;
             }
         }
