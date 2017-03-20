@@ -70,7 +70,7 @@ function search_number($number = 'number_word,number_word,...'){
     $f = file('numberlist.txt');
     $number_ = explode(',',$number);
     $k = 0;
-    foreach ($f as $id => $value) {
+    foreach ($f as $value) {
         $value = str_replace("\r\n","",$value);
         $lato_list = explode(',', $value);
         $class = 0;
@@ -97,7 +97,7 @@ function search_one_number_count($number = 'number_word'){
     $number_ = explode(',',$number);
     $k = 0;
     $count = 0;
-    foreach ($f as $id => $value) {
+    foreach ($f as $value) {
         $value = str_replace("\r\n","",$value);
         $lato_list = explode(',', $value);
         $class = 0;
@@ -122,7 +122,7 @@ function search_special_count($number = 'number_word'){
     $number_ = explode(',',$number);
     $k = 0;
     $count = 0;
-    foreach ($f as $id => $value) {
+    foreach ($f as $value) {
         $value = str_replace("\r\n","",$value);
         $lato_list = explode(',', $value);
         $class = 0;
@@ -140,4 +140,23 @@ function search_special_count($number = 'number_word'){
         $lato_list = null;
     }
     return $count;
+}
+
+function show_same_lato(){
+    $f = file('numberlist.txt');
+    foreach ($f as $value) {
+        $value = str_replace("\r\n","",$value);
+        $list[] = substr($value,11,17);
+    }
+    foreach ($list as $value){
+        $check = 0;
+        foreach ($list as $item){
+            if($value===$item){
+                $check++;
+            }
+        }
+        if($check>=2){
+            echo $value."<br>";
+        }
+    }
 }
