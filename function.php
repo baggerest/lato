@@ -181,7 +181,7 @@ function show_two_number_count(){
                     break;
                 default:
                     $count = search_two_number_count($noi.",".$noj,$list);
-                    $count = $count>=25?"<span style='background-color: blueviolet'>$count</span>":$count;
+                    $count = $count>=10?"<span style='background-color: blueviolet'>$count</span>":$count;
                     echo ($j===0)?"<th>".$noi."</th>":"<td>".$count."</td>";
                     break;
             }

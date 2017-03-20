@@ -11,6 +11,7 @@
     <form action="index.php" method="post" name="searchlato">
         查詢<input name="inputnumber" type="text" value="<?php if(isset($_POST['inputnumber']))echo $_POST['inputnumber']?>">
         <input name="sumbit" type="submit">
+        <input type="submit" name="update" value="連線更新樂透最新號碼">
     </form>
 </div>
 </body>
@@ -19,3 +20,5 @@ include 'function.php';
 
 if(isset($_POST['inputnumber']))
     search_number($_POST['inputnumber']);
+if(isset($_POST['update']))
+    get_url_list();
