@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="d84c48be-011d-42bf-8b24-554d186cf899" name="lato" url="http://localhost/lato/">
+        <fileTransfer port="0" mountedRoot="C:\wamp64\www\lato" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -1,7 +1,7 @@
 <?php
 function get_url_list(){
     $start = '<td style="background-color: #B02D00; color: #FFFFFF; font-size: 32px; font-weight: bold;text-align:center">特別號</td>';
-    $end = '<ins class="clickforceads" style="display:inline-block;width:728px;height:90px" data-ad-zone="942"></ins>';
+    $end = '</table>';
     $start_page = 1;
     $end_page = 0;
     $f = file("http://www.pilio.idv.tw/ltobig/list.asp?indexpage={$start_page}",FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES);
@@ -146,7 +146,7 @@ function show_same_lato(){
     $f = file('numberlist.txt');
     foreach ($f as $value) {
         $value = str_replace("\r\n","",$value);
-        $list[] = substr($value,11,17);
+        $list[] = substr($value,14,21);
     }
     foreach ($list as $value){
         $check = 0;
@@ -167,7 +167,7 @@ function show_two_number_count(){
     $end = 49;
     foreach ($f as $value){
         $value = str_replace("\r\n","",$value);
-        $list[] = explode(",",substr($value,11,17));
+        $list[] = explode(",",substr($value,14,21));
     }
     echo "<table border='1' style='text-align:center;'>";
     for ($i=$start;$i<=$end;$i++){
